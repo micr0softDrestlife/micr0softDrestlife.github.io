@@ -1,0 +1,822 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="HTTP： 超文本传输协议 用于定义WEB浏览器与WEB服务器之间交换数据的过程 规定了请求和响应的整个过程 HTTP是基于TCP的，是应用层协议，会在TCP&#x2F;IP协议栈向下传递的时候不断封装数据帧  http请求 数据格式 请求行 请求头 空行：请求头和请求体之间用一个空行隔开 最后一个请求头标之后是空行，发送回车符和退行，通知服务器以下不再有头标，还有内容的话就是请求体   请求体：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1-数据包">
+<meta property="og:url" content="http://example.com/2025/11/25/1-%E6%95%B0%E6%8D%AE%E5%8C%85/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="HTTP： 超文本传输协议 用于定义WEB浏览器与WEB服务器之间交换数据的过程 规定了请求和响应的整个过程 HTTP是基于TCP的，是应用层协议，会在TCP&#x2F;IP协议栈向下传递的时候不断封装数据帧  http请求 数据格式 请求行 请求头 空行：请求头和请求体之间用一个空行隔开 最后一个请求头标之后是空行，发送回车符和退行，通知服务器以下不再有头标，还有内容的话就是请求体   请求体：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/5.png">
+<meta property="article:published_time" content="2025-11-25T14:03:18.000Z">
+<meta property="article:modified_time" content="2025-11-25T14:08:21.815Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数据包">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/5.png">
+  
+  
+  
+  <title>1-数据包 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="1-数据包"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-25 22:03" pubdate>
+          2025年11月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">1-数据包</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="HTTP："><a href="#HTTP：" class="headerlink" title="HTTP："></a>HTTP：</h2><ul>
+<li>超文本传输协议</li>
+<li>用于定义WEB浏览器与WEB服务器之间交换数据的过程</li>
+<li>规定了请求和响应的整个过程</li>
+<li>HTTP是基于TCP的，是应用层协议，会在TCP&#x2F;IP协议栈向下传递的时候不断封装数据帧<br><img src="/5.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<h3 id="http请求"><a href="#http请求" class="headerlink" title="http请求"></a>http请求</h3><ul>
+<li>数据格式<ul>
+<li>请求行</li>
+<li>请求头</li>
+<li>空行：请求头和请求体之间用一个空行隔开<ul>
+<li><em><strong>最后一个请求头标之后是空行</strong></em>，发送回车符和退行，通知服务器以下不再有头标，还有内容的话就是请求体</li>
+</ul>
+</li>
+<li>请求体：要发送的数据（一般post提交会使用）</li>
+</ul>
+</li>
+</ul>
+<h4 id="请求行-请求方法（重点掌握）"><a href="#请求行-请求方法（重点掌握）" class="headerlink" title="请求行&#x2F;请求方法（重点掌握）"></a>请求行&#x2F;请求方法（重点掌握）</h4><ul>
+<li>请求行由三个标记组成：请求方法、请求 URL（路径） 和 HTTP 版本，它们用空格分享</li>
+<li>例如：<code>GET /index.html HTTP/1.1</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python">HTTP 规划定义了 <span class="hljs-number">8</span> 种可能的请求方法：<br>GET：检索 URL 中标识资源的一个简单请求<br><span class="hljs-number">1.</span>通常用来从浏览器获取内容。<br><span class="hljs-number">2.</span>请求参数默认在地址栏中。`格式：URL/参数<span class="hljs-number">1</span>=？？？（&amp;参数<span class="hljs-number">2</span>=？？？......）`。<br><span class="hljs-number">3.</span>请求参数的大小有限制，一般<span class="hljs-number">1</span>-8KB，不同浏览器不同。<br><span class="hljs-number">4.</span>**是默认的请求方式**。<span class="hljs-number">5.</span>相对不安全（地址栏直接发现）<br><br>HEAD：与 GET 方法相同，服务器只返回状态行和头标，并不返回请求文档<br><br>POST：服务器接受被写入客户端输出流中的数据的请求<br><span class="hljs-number">1.</span>通常用来提交内容（提交表单（登录、注册、个人信息填写等））<br><span class="hljs-number">2.</span>请求参数在实体，即`Form Data`（表单数据）中。<br><span class="hljs-number">3.</span>请求参数的大小认为没有限制。<br><span class="hljs-number">4.</span>上传文件必须使用post请求。<span class="hljs-number">5.</span>相对安全<br><br>PUT：服务器保存请求数据作为指定 URL 新内容的请求<br><span class="hljs-number">1.</span>用于修改，携带实体内容，修改的同时会覆盖，即拿新的内容覆盖原先内容<br><span class="hljs-number">2.</span>`格式：URL/update/...（同上）`<br><br>DELETE：服务器删除 URL 中命令的资源的请求<br><span class="hljs-number">1.</span>用于删除内容。<br><span class="hljs-number">2.</span>有restful风格该风格也支持PUT；PATCH。<br><span class="hljs-number">3.</span>`格式：URL/delete/...（...中为删除的内容）`<br>	请求体里也能放要删除的资源<br><br>`PATCH请求`：<br><span class="hljs-number">1.</span>同样用于修改，但不会覆盖。<br><span class="hljs-number">2.</span>`格式：URL/patch/...（同上）`<br><br>OPTIONS：关于服务器支持的请求方法信息的请求<br><br>TRACE：web 服务器反馈 Http 请求和其头标的请求<br><br>CONNECT ：已文档化，但当前未实现的一个方法，预留做隧道处理<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="HTTP-Version"><a href="#HTTP-Version" class="headerlink" title="HTTP-Version"></a>HTTP-Version</h5><h6 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP&#x2F;1.0"></a>HTTP&#x2F;1.0</h6><ul>
+<li>发出请求，中断连接</li>
+<li><code>HTTP/1.0</code>是无状态、无连接的<ul>
+<li><strong>无连接</strong>：每次请求都需要建立连接，需要使用<code>keep-alilve</code>参数建立<em>长连接</em>。无法复用连接，每次发送请求都需要进行TCP连接，而TCP连接释放都较耗时，因此导致网络利用率低<ul>
+<li><code>keep-alive</code>就是告诉对方在这次请求&#x2F;响应完成后先不要关闭TCP连接</li>
+</ul>
+</li>
+<li><strong>无状态</strong>：服务器不需要额外资源记录，减轻服务器负担</li>
+</ul>
+</li>
+</ul>
+<h6 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP&#x2F;1.1"></a>HTTP&#x2F;1.1</h6><ul>
+<li>发出请求，保持连接，如果同样的请求，复用连接</li>
+<li><code>HTTP/1.1</code>默认长连接<code>kepp-alile</code>，即使不显式写出，连接也会保持一段时间，除非响应头中明确包含<code>Connection: close</code></li>
+<li>支持管道网络传输，<strong>客户端可以发起多个请求</strong>，只要第一个请求发出去了，不必等其回来，就可以发第二个请求出去，可以减少整体的响应时间。<ul>
+<li>但是服务器必须<strong>按照接收请求的顺序发送对这些管道化请求的响应</strong></li>
+</ul>
+</li>
+</ul>
+<h6 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP&#x2F;2.0"></a>HTTP&#x2F;2.0</h6><ul>
+<li><code>HTTP/2.0</code>会压缩<code>header</code>部分，如果多个请求其头部一样或相似，则协议会消除重复部分</li>
+<li>利用<code>HPAK</code>算法：在客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生成一个索引号，就不用重复发送同样字段了，只发送索引号，减少数据量提高速度</li>
+<li>与1.0和1.1不同的是，2.0中采用了<strong>二进制格式</strong>而不是纯文本格式</li>
+<li>报头和数据体称为帧：<strong>头信息帧</strong>和<strong>数据帧</strong></li>
+</ul>
+<h6 id="队头阻塞"><a href="#队头阻塞" class="headerlink" title="队头阻塞"></a>队头阻塞</h6><ul>
+<li>无论是无连接还是长连接，请求和响应必须串行处理</li>
+<li>即如果第一个请求的响应还没返回，后面的请求机制已发送，也必须等待</li>
+</ul>
+<h4 id="HTTP请求头：request-header"><a href="#HTTP请求头：request-header" class="headerlink" title="HTTP请求头：request-header"></a>HTTP请求头：request-header</h4><ul>
+<li>由关键字&#x2F;值对组成，每行一对，关键字和值用冒号分享。请求头标通知服务器关于客户端的功能和标识</li>
+</ul>
+<h5 id="HOST"><a href="#HOST" class="headerlink" title="HOST"></a>HOST</h5><ul>
+<li>主机或域名地址，是要访问的主机名称，即对应网址 URL 中的 Web 名称和端口号。</li>
+</ul>
+<h5 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h5><ul>
+<li>通知服务器浏览器或其他客户可以接爱的 MIME 文件格式。Servlet （<strong>中间件</strong>）可以根据它判断并返回适当的文件格式。</li>
+</ul>
+<h5 id="Accept-Encoding"><a href="#Accept-Encoding" class="headerlink" title="Accept-Encoding"></a>Accept-Encoding</h5><ul>
+<li>指出浏览器可以接受的编码方式</li>
+<li>编码方式不同于文件格式，它是为了压缩文件并加速文件传递速度。浏览器在接收到 Web 响应之后先解码，然后再检查文件格式</li>
+</ul>
+<h5 id="Accept-Langeuage"><a href="#Accept-Langeuage" class="headerlink" title="Accept-Langeuage"></a>Accept-Langeuage</h5><ul>
+<li>指出浏览器可以接受的语言种类</li>
+<li>如 en 或 en-us指英语</li>
+</ul>
+<h5 id="Accept-Charset"><a href="#Accept-Charset" class="headerlink" title="Accept-Charset"></a>Accept-Charset</h5><ul>
+<li>指出浏览器可以接受的字符编码。英文浏览器的默认值是 ISO-8859-1.</li>
+</ul>
+<h5 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h5><ul>
+<li>是客户浏览器名称，即发出请求的客户端信息，是Web浏览器用于声明自身型号版本并随HTTP请求发送给Web服务器的字符串</li>
+</ul>
+<h6 id="UA字段整理"><a href="#UA字段整理" class="headerlink" title="UA字段整理"></a>UA字段整理</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 微信6.0：</span><br><span class="hljs-comment">## 从微信6.0开始，其内嵌的浏览器在User Agent字符串中增加了NetType字段用于标识客户端（手机）当前的网络环境，该字段至少有以下3个取值：</span><br>- NetType/WIFI<br>- NetType/2G<br>- NetType/3G<br><span class="hljs-comment"># iPhone：</span><br>iPhone 5 / iOS 8.0 / Wifi：<br>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 MicroMessenger/6.0 NetType/WIFI<br><br>iPhone 5 / iOS 8.0 / 2G：<br>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 MicroMessenger/6.0 NetType/2G<br><br>iPhone 5 / iOS 8.0 / 3G：<br>Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 MicroMessenger/6.0 NetType/3G+<br><span class="hljs-comment"># 小米： </span><br>红米 / Android 4.2.2 / Wifi：<br>Mozilla/5.0 (Linux; U; Android 4.2.2; zh-cn; 2014011 Build/HM2014011) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 MicroMessenger/6.0.0.50_r844973.501 NetType/WIFI<br><br>小米3 / Android 4.4.2 / Wifi （微信5.3还没有提供 NetType 字段）：<br>Mozilla/5.0 (Linux; Android 4.4.2; MI 3 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 MicroMessenger/5.3.0.51_r697493.440<br><br></code></pre></td></tr></table></figure>
+
+
+<h5 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h5><ul>
+<li>浏览器用这个属性向服务器发送 Cookie</li>
+<li>Cookie 是在浏览器中寄存的小型数据体，它可以记载和服务器相关的用户信息，也可以用来实现会话功能。是浏览器存储的缓存信息</li>
+</ul>
+<h5 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h5><ul>
+<li>表明产生请求数据包的网页URL</li>
+<li>Referer这个属性可以用来<strong>跟踪 Web 请求是从什么网站来的</strong>。</li>
+<li>用于检查请求来源是否合法，采用的格式是URL</li>
+<li>防盗链（例如：仅允许从本站页面访问图片资源）</li>
+<li>统计流量来源</li>
+<li>CSRF防护（部分系统会检查Referer是否合法）</li>
+<li>referer-policy策略：<ul>
+<li>no-referer：该策略表示不发送referer信息</li>
+<li>no-referrer-when-downgrade：如果从 HTTPS 网址链接到 HTTP 网址，不发送Referer字段，其他情况发送</li>
+<li>origin：Referer字段一律只发送源信息（协议+域名+端口），不管是否跨域</li>
+<li>origin-when-cross-origin：同源时，发送完整的Referer字段，跨域时发送源信息。</li>
+</ul>
+</li>
+<li>strict-origin：如果从 HTTPS 网址链接到 HTTP 网址，不发送Referer字段，其他情况只发送源信息。</li>
+<li>strict-origin-when-cross-origin：同源时，发送完整的Referer字段；跨域时，如果 HTTPS 网址链接到 HTTP 网址，不发送Referer字段，否则发送源信息</li>
+<li>unsafe-url：Referer字段包含源信息、路径和查询字符串，不包含锚点、用户名和密码</li>
+</ul>
+<h5 id="X-Forwarded-For"><a href="#X-Forwarded-For" class="headerlink" title="X-Forwarded-For"></a>X-Forwarded-For</h5><ul>
+<li>简称<em><strong>XFF头</strong></em>，代表客户端，也就是<em><strong>HTTP的请求端真实的IP</strong></em></li>
+<li>只有在通过了HTTP 代理或者负载均衡服务器时才会添加该项</li>
+<li>如果后端仅检查XFF头来获取客户端IP，而没有验证，攻击者可以伪造XFF头来绕过IP限制</li>
+<li>格式示例：<code>X-Forwarded-For: client_ip, proxy1_ip, proxy2_ip</code></li>
+<li>从左到右依次是客户端真实IP和各级代理IP</li>
+<li>某些场景下，XFF头可能被用于构造服务端请求（如日志系统），若未过滤，可能导致SSRF（服务端请求伪造），可用于伪造IP</li>
+</ul>
+<h5 id="Via"><a href="#Via" class="headerlink" title="Via"></a>Via</h5><ul>
+<li>用于跟踪请求和响应及你给过的<em><strong>代理服务器信息</strong></em></li>
+<li>允许客户端和服务端了解请求和响应的路径，以及是否经过代理服务器</li>
+<li>由代理服务器<em><strong>自动添加和更新</strong></em></li>
+<li>反向代理检测：服务器可以通过Via头字段判断请求是否经过了反向代理服务器，以便做出不同的处理。</li>
+<li>防止循环：Via头字段可以用于检测请求或响应在代理服务器之间发生循环转发的情况，防止请求和响应在代理服务器之间无限循环。</li>
+</ul>
+<h6 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h6><ul>
+<li>该字段由多部分组成，<strong>每个部分</strong>表示&#x3D;&#x3D;一个&#x3D;&#x3D;经过的<strong>代理服务器</strong>*</li>
+<li>每个部分的组成内容：<ul>
+<li>PS：由逗号分隔<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">1.协议版本：代理服务器使用的HTTP协议版本，例如HTTP/1.1。<br>2.代理服务器：代理服务器的域名或IP地址:监听的端口号。<br>3.注释：*可选项*，用于提供额外信息，例如代理服务器的软件和版本<br><span class="hljs-comment"># 示例：</span><br>Via: 1.1 proxy.example.com:8080, 1.1 forward-proxy.example.net<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>当请求经过一个代理服务器时，代理会自动添加一个新的包含它自身信息<code>Via</code>字段，同时会更新请求中原有的<code>Via</code>字段，把自己的信息追加到最前面</li>
+</ul>
+<h5 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h5><ul>
+<li>用来告诉服务器是否可以维持固定的 HTTP 连接</li>
+<li>HTTP 是无连接的，HTTP&#x2F;1.1 使用 <strong>keep-alive</strong>为<strong>默认值</strong>，这样，当浏览器需要多个文件时(比如一个 HTML 文件和相关的图形文件)，不需要每次都建立连接</li>
+<li>当值为<code>close</code>的时候：该信息由服务器发送，发送完服务器自动断开</li>
+</ul>
+<h6 id="Proxy-Connection"><a href="#Proxy-Connection" class="headerlink" title="Proxy-Connection"></a>Proxy-Connection</h6><ul>
+<li>使用代理后会变成这样</li>
+<li><strong>默认值</strong>同样为<strong>keep-alive</strong></li>
+</ul>
+<h5 id="Content-Type"><a href="#Content-Type" class="headerlink" title="Content-Type"></a>Content-Type</h5><ul>
+<li>用来表明request的内容类型。可以用HttpServletRequest 的getContentType()方法取得。</li>
+<li><code>application/x-www-form-urlencoded</code>：表单形式</li>
+<li><code>application/json</code>：json格式</li>
+</ul>
+<h5 id="请求的实体内容（请求数据）"><a href="#请求的实体内容（请求数据）" class="headerlink" title="请求的实体内容（请求数据）"></a>请求的实体内容（请求数据）</h5><ul>
+<li>使用 POST 传送，最常使用的是 Content-Type 和 Content-Length 头标。</li>
+</ul>
+<h4 id="http响应"><a href="#http响应" class="headerlink" title="http响应"></a>http响应</h4><ul>
+<li>数据格式<ul>
+<li>状态行：协议版本、数字形式的状态代码和状态描述，元素之间以空格分隔<ul>
+<li>响应的状态码：一个数字。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">200（请求被成功处理）<br>304（使用缓存）<br>403 存在文件夹<br>404（路径错误/资源不存在）<br>500:表示服务器在处理请求时遇到无法处理的错误，通常源于服务端的问题，如：代码错误、配置错误、资源不可用<br>302/307（请求重定向（从一个页面转到另一个页面（比如登录成功之后跳转到首页）））<br>401（请求未认证（比如需要登录权限进行操作，没有登录））<br><br>- HTTP状态码分类 <br>	1 信息，服务器收到请求，需要请求者继续执行操作<br>    2 成功，操作被成功接收并处理<br>    3 重定向，为了完成请求需要进一步的操作以完成请求<br>    4 客户端错误，请求包含语法错误或无法完成请求<br>    5 服务器错误，服务器在处理请求的过程中发生了错<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/leledexixi/article/details/59109160">了解更多状态码</a></p>
+<ul>
+<li>响应头：包含服务器类型、日期、长度、内容类型等</li>
+<li>空行</li>
+<li>响应数据：服务器返给客户端的数据，浏览器会将实体内容中的数据取出来，生成相应的页面</li>
+</ul>
+<h5 id="HTTP响应头：response-header"><a href="#HTTP响应头：response-header" class="headerlink" title="HTTP响应头：response header"></a>HTTP响应头：response header</h5><p>1.connection:保持连接<br>2.&#x3D;&#x3D;content-type&#x3D;&#x3D;</p>
+<ul>
+<li>text&#x2F;html（网页形式）<ul>
+<li>image&#x2F;jpeg </li>
+<li>text&#x2F;json（json数据格式）</li>
+<li>application&#x2F;json（json格式的数据）<br>  3.date<br>  4.&#x3D;&#x3D;Set-Cookie头&#x3D;&#x3D;：设置HTTP cookie，服务器返回给浏览器</li>
+</ul>
+</li>
+</ul>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><ul>
+<li>安全套接字层超文本传输协议</li>
+<li>比HTTP更安全</li>
+<li>加入了SSL协议，该协议依靠证书来验证服务器的身份并为通信提供加密</li>
+<li>非对称加密公钥加密信息私钥解密，私钥加密信息公钥解密</li>
+<li>HTTPS协议需要到CA申请证书，一般免费证书很少，需要交费。</li>
+<li>HTTP协议运行在TCP之上，所有传输的内容都是明文，HTTPS运行在SSL&#x2F;TLS之上，SSL&#x2F;TLS运行在TCP之上，所有传输的内容都经过加密的。</li>
+<li>HTTP和HTTPS使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</li>
+<li>HTTPS可以有效的防止运营商劫持，解决了防劫持的一个大问题</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="category-chain-item">数据与网络</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8C%85/" class="print-no-link">#数据包</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>1-数据包</div>
+      <div>http://example.com/2025/11/25/1-数据包/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/11/25/2-%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" title="2-网络通信">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2-网络通信</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/11/25/JAVA-GadgetChain-1-URLDNS/" title="JAVA-GadgetChain-1-URLDNS">
+                        <span class="hidden-mobile">JAVA-GadgetChain-1-URLDNS</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
