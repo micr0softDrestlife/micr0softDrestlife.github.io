@@ -19,14 +19,17 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="子网掩码 子网掩码的作用是将IP地址划分为网络地址和主机地址 子网掩码不能单独存在，必须结合IP地址一起使用 即用来分割子网和区分哪些IP是同一网段，哪些不是同一网段1234567ip地址:192.168.1.1 子网掩码:255.255.255.0ip地址:192.168.1.2 子网掩码:255.255.255.0这是同一个网段的ip地址ip地址:192.168.1.1 子网掩码:255.25">
+<meta property="og:type" content="article">
 <meta property="og:title" content="4-IP相关">
 <meta property="og:url" content="http://example.com/2025/11/25/4-IP%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="子网掩码 子网掩码的作用是将IP地址划分为网络地址和主机地址 子网掩码不能单独存在，必须结合IP地址一起使用 即用来分割子网和区分哪些IP是同一网段，哪些不是同一网段1234567ip地址:192.168.1.1 子网掩码:255.255.255.0ip地址:192.168.1.2 子网掩码:255.255.255.0这是同一个网段的ip地址ip地址:192.168.1.1 子网掩码:255.25">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-25T14:03:53.000Z">
-<meta property="article:modified_time" content="2025-11-25T14:03:53.127Z">
+<meta property="article:modified_time" content="2025-11-25T14:12:02.995Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="IP">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -220,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          447 字
         
       </span>
     
@@ -231,7 +234,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -273,7 +276,20 @@
             
               <div class="markdown-body">
                 
-                
+                <h3 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h3><ul>
+<li>子网掩码的作用是将IP地址划分为网络地址和主机地址</li>
+<li>子网掩码不能单独存在，必须结合IP地址一起使用</li>
+<li>即用来分割子网和区分哪些IP是同一网段，哪些不是同一网段<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">ip地址:192.168.1.1 子网掩码:255.255.255.0<br>ip地址:192.168.1.2 子网掩码:255.255.255.0<br>这是同一个网段的ip地址<br><br>ip地址:192.168.1.1 子网掩码:255.255.255.0<br>ip地址:192.168.1.2 子网掩码:255.255.0.0<br>这是不同网段的ip地址<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="如何根据掩码确定IP地址网段"><a href="#如何根据掩码确定IP地址网段" class="headerlink" title="如何根据掩码确定IP地址网段"></a>如何根据掩码确定IP地址网段</h4><ul>
+<li>只需将ip地址与子网掩码做<em><strong>与运算</strong></em>，如果得出结果一样，则这两个ip地址是同一个子网<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs text">ip地址:192.168.1.1<br>11000000 10101000 00000001 00000001<br><br>子网掩码:255.255.255.0<br>11111111.11111111.11111111 00000000<br><br>做and运算<br>11000000 10101000 00000001 00000000<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="如何根据IP地址推算子网掩码"><a href="#如何根据IP地址推算子网掩码" class="headerlink" title="如何根据IP地址推算子网掩码"></a>如何根据IP地址推算子网掩码</h4><ul>
+<li>大部分的情况下，我们网络中只要不超过254台主机的的话，子网掩码都可以设置成255.255.255.0</li>
+<li>那么超过了254台主机的话怎么办呢？</li>
+<li>可以划分vlan，也可以设置成一个大网段<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">ip段一：192.168.0.1~192.168.0.254<br>ip段二：192.168.1.1~192.168.1.254<br>ip段三：192.168.2.1~192.168.2.254<br><span class="hljs-comment"># CIDR（五类别域间路由）表示法/后面的数字为1~32</span><br><span class="hljs-comment">## 转二进制发现三个ip段二进制的前22位是不变的，则可以表示成：</span><br>ip段一：192.168.0.x/22<br>ip段二：192.168.1.x/22<br>ip段三：192.168.2.x/22<br><span class="hljs-comment">## 即形如192.168.2.x/22形式的ip地址，这就已经告诉我们子网掩码了</span><br><span class="hljs-comment">### 即它们共同的子网掩码二进制前22位都是1</span><br>11111111 11111111 11111100 00000000<br>转十进制就是255.255.252.0<br></code></pre></td></tr></table></figure></li>
+</ul>
+
                 
               </div>
             
@@ -281,6 +297,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="category-chain-item">数据与网络</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/IP/" class="print-no-link">#IP</a>
+      
+    </div>
   
 </div>
 

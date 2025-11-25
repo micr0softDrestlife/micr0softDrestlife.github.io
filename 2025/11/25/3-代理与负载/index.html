@@ -19,14 +19,18 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="代理服务器或负载均衡 在Web通信中，代理服务器和负载均衡是两种常见的中间节点，它们会改变客户端与服务器的直接交互模式，用于改变客户端与服务器的直接通信路径 XFF头的意义：记录经过的中间节点IP，帮助后端识别真实客户端  代理服务器 是介于客户端和目标服务器之间的中间服务器，代替客户端发送请求并返回响应 核心作用： 隐藏客户端真实IP（保护隐私） 缓存静态资源（加速访问） 过滤恶意流量（安全防护">
+<meta property="og:type" content="article">
 <meta property="og:title" content="3-代理与负载">
 <meta property="og:url" content="http://example.com/2025/11/25/3-%E4%BB%A3%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="代理服务器或负载均衡 在Web通信中，代理服务器和负载均衡是两种常见的中间节点，它们会改变客户端与服务器的直接交互模式，用于改变客户端与服务器的直接通信路径 XFF头的意义：记录经过的中间节点IP，帮助后端识别真实客户端  代理服务器 是介于客户端和目标服务器之间的中间服务器，代替客户端发送请求并返回响应 核心作用： 隐藏客户端真实IP（保护隐私） 缓存静态资源（加速访问） 过滤恶意流量（安全防护">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-25T14:03:41.000Z">
-<meta property="article:modified_time" content="2025-11-25T14:03:41.326Z">
+<meta property="article:modified_time" content="2025-11-25T14:11:44.788Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="代理">
+<meta property="article:tag" content="负载">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -220,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          945 字
         
       </span>
     
@@ -231,7 +235,7 @@
         
         
         
-          1 分钟
+          8 分钟
         
       </span>
     
@@ -273,7 +277,93 @@
             
               <div class="markdown-body">
                 
-                
+                <h3 id="代理服务器或负载均衡"><a href="#代理服务器或负载均衡" class="headerlink" title="代理服务器或负载均衡"></a>代理服务器或负载均衡</h3><ul>
+<li>在Web通信中，代理服务器和负载均衡是两种常见的中间节点，它们会改变客户端与服务器的直接交互模式，用于改变客户端与服务器的直接通信路径</li>
+<li>XFF头的意义：记录经过的中间节点IP，帮助后端识别真实客户端</li>
+</ul>
+<h4 id="代理服务器"><a href="#代理服务器" class="headerlink" title="代理服务器"></a>代理服务器</h4><ul>
+<li>是介于客户端和目标服务器之间的中间服务器，<em><strong>代替客户端发送请求</strong></em>并返回响应<ul>
+<li>核心作用：<ul>
+<li>隐藏客户端真实IP（保护隐私）</li>
+<li>缓存静态资源（加速访问）</li>
+<li>过滤恶意流量（安全防护）</li>
+<li>突破网络限制（如访问被封锁的网站）</li>
+</ul>
+</li>
+<li>通信流程示例（存在代理）：<ul>
+<li>客户端 → 代理服务器 → 目标服务器<br>   (转发请求)</li>
+<li>目标服务器 → 代理服务器 → 客户端<br>       (返回响应)</li>
+</ul>
+</li>
+<li>当客户端通过代理访问服务器时：服务器看到的IP是代理服务器的IP，而非客户端真实IP。<ul>
+<li>代理服务器通常会在请求头中添加X-Forwarded-For字段，记录客户端原始IP（例如：X-Forwarded-For: 客户端IP）。</li>
+<li>漏洞点：若后端代码直接信任X-Forwarded-For头而未验证代理是否合法，攻击者可伪造该头绕过IP限制</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><ul>
+<li>是一种<em><strong>将网络流量分配到多个服务器</strong></em>的技术，用于提升系统性能和可靠性<ul>
+<li>典型架构：客户端 → 负载均衡器 → [服务器1, 服务器2, 服务器3…]</li>
+<li>核心作用：<ul>
+<li>流量分发：根据算法（轮询、权重、最少连接数等）分配请求</li>
+<li>故障转移：自动剔除故障服务器，保证服务可用性</li>
+<li>SSL终结：在负载均衡器上处理HTTPS加解密，减轻后端服务器压力</li>
+</ul>
+</li>
+<li>与XFF头的关系：<ul>
+<li>当流量经过负载均衡器时，负载均衡器会将客户端真实IP添加到X-Forwarded-For头中。后端服务器通过读取X-Forwarded-For获取客户端真实IP（而非负载均衡器的IP）</li>
+<li>示例：<code>X-Forwarded-For: 客户端IP, 负载均衡器IP</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>攻击场景：<ul>
+<li>&#x3D;&#x3D;IP伪造&#x3D;&#x3D;：如果题目后端仅检查最后一个IP（例如：X-Forwarded-For: 1.1.1.1, 2.2.2.2，后端取2.2.2.2），攻击者可构造多层代理IP绕过限制。<ul>
+<li>Payload示例：<code>X-Forwarded-For: 127.0.0.1, 3.3.3.3</code></li>
+<li>后端可能误认为3.3.3.3是客户端IP。</li>
+</ul>
+</li>
+<li>&#x3D;&#x3D;信任链漏洞&#x3D;&#x3D;：假设服务器仅允许来自特定代理或负载均衡的请求（如信任192.168.0.100），但未验证X-Forwarded-For的合法性，攻击者可伪造：<ul>
+<li><code>X-Forwarded-For: 恶意IP</code></li>
+<li><code>X-Real-IP: 恶意IP</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Referer利用"><a href="#Referer利用" class="headerlink" title="Referer利用"></a>Referer利用</h3><ul>
+<li>Referer伪造：<ul>
+<li>如果后端仅检查Referer是否包含特定字符串（而非完整匹配），可尝试构造Referer绕过</li>
+<li>高级绕过：若检查Referer是否包含example.com，可尝试<ul>
+<li><code>Referer: http://example.com.attacker.net</code></li>
+<li><code>Referer: http://attacker.net/?example.com</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>空Referer或删除Referer：<ul>
+<li>某些场景允许Referer为空（例如：从本地文件打开页面或使用<code>&lt;meta&gt;</code>标签跳转）</li>
+<li>通过删除Referer头可能绕过检查（使用工具如Burp Suite拦截请求后删除该字段）</li>
+</ul>
+</li>
+<li>利用Referer的开放性协议：<ul>
+<li>如果允许<code>data:</code>或<code>javascript:</code>协议，可能触发XSS:<code>Referer: javascript:alert(1)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="XFF利用"><a href="#XFF利用" class="headerlink" title="XFF利用"></a>XFF利用</h3><ul>
+<li>IP伪造：<ul>
+<li>如果后端代码直接信任XFF头来获取客户端IP（而没验证来源），攻击者可伪造XFF头绕过IP限制</li>
+</ul>
+</li>
+<li>SSRF&#x2F;代理注入：<ul>
+<li>某些场景下，XFF头可能被用于构造服务端请求（如日志系统），若未过滤，可能导致SSRF（服务端请求伪造）</li>
+</ul>
+</li>
+</ul>
+
                 
               </div>
             
@@ -281,6 +371,36 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="category-chain-item">数据与网络</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BB%A3%E7%90%86/" class="print-no-link">#代理</a>
+      
+        <a href="/tags/%E8%B4%9F%E8%BD%BD/" class="print-no-link">#负载</a>
+      
+    </div>
   
 </div>
 
