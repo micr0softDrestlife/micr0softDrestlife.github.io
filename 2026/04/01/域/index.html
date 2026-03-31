@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="域环境（Domain）是微软为企业网络涉及的一种集中式管理模式。没有域环境的情况下每台电脑的账密等等都存在本地，在域环境下由核心服务器统一管理 AD 域（Active Directory，活动目录）：是微软对“域环境”这个概念的具体技术实现，即存储在DC上的核心数据库（存储在域控的 NTDS.dit 文件里）。 AD本质上就是一个分布式的数据库，里面存着域中所有的计算机、用户、密码哈希和权限关系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2026/04/01/%E5%9F%9F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="域环境（Domain）是微软为企业网络涉及的一种集中式管理模式。没有域环境的情况下每台电脑的账密等等都存在本地，在域环境下由核心服务器统一管理 AD 域（Active Directory，活动目录）：是微软对“域环境”这个概念的具体技术实现，即存储在DC上的核心数据库（存储在域控的 NTDS.dit 文件里）。 AD本质上就是一个分布式的数据库，里面存着域中所有的计算机、用户、密码哈希和权限关系">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-31T16:58:57.919Z">
+<meta property="article:modified_time" content="2026-03-09T07:32:10.875Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="域">
+<meta property="article:tag" content="Scan">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-01 00:58" pubdate>
+          2026年4月1日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <ul>
+<li><strong>域环境</strong>（<code>Domain</code>）是微软为<strong>企业网络</strong>涉及的一种<strong>集中式管理模式</strong>。没有域环境的情况下每台电脑的账密等等都存在本地，在域环境下由核心服务器统一管理</li>
+<li><strong>AD 域</strong>（<code>Active Directory</code>，活动目录）：是微软对“域环境”这个概念的<strong>具体技术实现</strong>，即存储在<code>DC</code>上的核心数据库（存储在域控的 <code>NTDS.dit</code> 文件里）。<ul>
+<li><code>AD</code>本质上就是一个分布式的<strong>数据库</strong>，里面存着域中所有的计算机、用户、密码哈希和权限关系</li>
+<li>默认路径：<code>C:\Windows\NTDS</code>（大小写皆可）</li>
+<li>存放了：<code>ntds.dit</code>、<code>edb.chk</code>（检查点文件，记录了数据库最后一次写入的进度）、<code>edb*.log</code>（事务日志文件）、<code>temp.edb</code>（临时工作文件）等</li>
+<li><strong>利用</strong><code>ntds.dit</code>和<code>SYSTEM</code>获取<strong>域哈希</strong>：[[LSA内存与NTLM]]</li>
+</ul>
+</li>
+<li>在<code>Winodws</code>中域和<code>AD</code>域是等价的</li>
+<li><strong>域目录</strong>：在<strong>展现形式上</strong>与文件目录类似，但后者是存在硬盘扇区里用来存储真正的文件数据，而域目录本质是一个<strong>分布式关系型数据库</strong>（实体文件在<code>DC</code>的<code>ntds.dit</code>中<ul>
+<li>存储对象与属性，员工账号、加入域1电脑、部门等等都是对象</li>
+<li>权限设置、组策略（<code>GPO</code>）等也是对象或对象的属性（比如给账户对象设置一个<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>属性）</li>
+<li>[[LDAP与LDAPS]]</li>
+</ul>
+</li>
+</ul>
+<h4 id="域的结构"><a href="#域的结构" class="headerlink" title="域的结构"></a>域的结构</h4><ul>
+<li>域管（<code>DA</code>）：是一个域环境中权限最高的人类管理员账号</li>
+<li>域控（<code>DC</code>）：是<strong>机器</strong>，是运行<code>AD</code>数据库的核心机器<ul>
+<li><code>KDC</code>（<strong>密钥分发中心</strong>），是<code>DC</code>的服务组件，专门负责<code>Kerberos</code>认证协议的运行，负责核对密码、颁发<code>TGT</code>和<code>ST</code><ul>
+<li>默认运行在<strong>88</strong>端口</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>AD</code>域</li>
+<li>组策略</li>
+<li>组织单位</li>
+<li>域林与域树</li>
+</ul>
+<h4 id="域用户"><a href="#域用户" class="headerlink" title="域用户"></a>域用户</h4><ul>
+<li>[[用户与用户组]]</li>
+<li>默认情况下域用户确实可以通过网络去访问域内普通机器的共享，或者进行交互式登录，但这在机器上通常只是标准用户而没有<code>Administrator</code>权限<ul>
+<li>并且默认情况下普通域用户没有[[RDP]]和[[WinRM]]的权限，要<strong>远程控制目标机器</strong>的话目标机器的<code>Remote Desktop Users</code>或<code>Administrators</code>组里必须有这个域用户<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">net user &lt;username&gt; /domain <span class="hljs-comment"># 工作站允许Workstations allowed字段</span><br>Get-ADUser &lt;username&gt; -Properties LogonWorkstations<br><span class="hljs-comment"># bloodhound查看</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><code>Domain Admins</code>：域管，管理一个域</li>
+<li><code>Enterprise Admins</code>：企业管理员，管理整个域林。该组只存在于林根域（即第一个建立的子域）</li>
+<li><code>Schema Admins</code>：架构管理员组，和<code>EA</code>一样，也是只存在于林根域的顶级权限组</li>
+<li><code>krbtgt</code>：[[凭据与票据]]</li>
+</ul>
+<h5 id="域内置组"><a href="#域内置组" class="headerlink" title="域内置组"></a>域内置组</h5><ul>
+<li><strong>域内置组</strong>提供的是域级别的权限而不是单台机器的本地权限</li>
+</ul>
+<h6 id="Domain-Admins"><a href="#Domain-Admins" class="headerlink" title="Domain Admins"></a>Domain Admins</h6><ul>
+<li>域管组</li>
+</ul>
+<h6 id="Account-Operators"><a href="#Account-Operators" class="headerlink" title="Account Operators"></a>Account Operators</h6><ul>
+<li><code>Account Operators</code>（账号操作员）：这个组的成员可以在<strong>活动目录</strong>中<strong>创建、修改和删除普通的域用户、域组和计算机账户</strong><ul>
+<li>可以拿到域控以外所有机器的<code>SYSTEM</code>权限</li>
+</ul>
+</li>
+<li>为了防止越权，微软规定 <code>Account Operators</code> <strong>不能修改</strong>那些高级特权组（如 <code>Domain Admins</code>、<code>Enterprise Admins</code>、<code>Administrators</code>、<code>Server Operators</code> 等）及其成员的属性<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h6 id="Backup-Operators"><a href="#Backup-Operators" class="headerlink" title="Backup Operators"></a>Backup Operators</h6><ul>
+<li><code>Backup Operators</code>（备份操作员组）：是为了让员工能<strong>备份服务器数据</strong>而设立的组</li>
+<li>拥有 <code>SeBackupPrivilege</code> 和 <code>SeRestorePrivilege</code> 特权。系统会允许它们<strong>绕过所有的文件权限</strong>去<strong>读取和写入任何文件</strong>。常用于获取域控上的 <code>NTDS.dit</code>和 <code>SYSTEM</code> 注册表项</li>
+</ul>
+<h6 id="Server-Operators"><a href="#Server-Operators" class="headerlink" title="Server Operators"></a>Server Operators</h6><ul>
+<li><code>Server Operators</code>（服务器操作员组）：是负责维护域服务器的组。</li>
+<li>这个组可以<strong>登录域控</strong>，并且可以<strong>启动或停止系统服务</strong>或<strong>备份和恢复文件</strong>。可以通过修改某个以 <code>SYSTEM</code> 运行的服务的执行路径，重启服务后直接获得域控的 <code>SYSTEM</code> 权限。</li>
+</ul>
+<h6 id="DnsAdmins"><a href="#DnsAdmins" class="headerlink" title="DnsAdmins"></a>DnsAdmins</h6><ul>
+<li><code>DnsAdmins</code>（<code>DNS</code> 管理员组）：是负责管理域内的<code>DNS</code>服务器。在<code>AD</code>环境中，<code>DNS</code>服务通常直接安装在<code>DC</code>上，且以 <code>SYSTEM</code> 权限运行</li>
+<li>如果获得一个属于 <code>DnsAdmins</code> 组的普通账户，可以让<code>DNS</code>服务加载指定的恶意<code>DLL</code>文件获得<code>SYSTEM</code>权限 （<code>DNSAdmin EoP</code>）</li>
+</ul>
+<h6 id="Print-Operators"><a href="#Print-Operators" class="headerlink" title="Print Operators"></a>Print Operators</h6><ul>
+<li><code>Print Operators</code>（打印机操作员）：可以登录域控并域控上加载设备驱动程序</li>
+<li>常结合<code>Print Spooler</code>的漏洞，或者利用加载恶意打印机驱动的方式在域控上执行代码提权</li>
+</ul>
+<h4 id="域数据同步"><a href="#域数据同步" class="headerlink" title="域数据同步"></a>域数据同步</h4><ul>
+<li>在域中，不同的域控之间，默认每隔15min就会进行一次<strong>域数据同步</strong></li>
+<li>当一个额外的域控想从其他域控同步数据时，额外域控会向其他域控发起请求，请求同步数据。如果需要同步的数据比较多，则会重复上述过程</li>
+<li><code>DCSync</code>就是利用这个原理，[[mimikatz]]</li>
+</ul>
+<h4 id="域机器"><a href="#域机器" class="headerlink" title="域机器"></a>域机器</h4><ul>
+<li>将一个机器加入域的时候要输入一个域用户的账号密码，这个用户就是将机器加入域的域用户</li>
+</ul>
+<h3 id="域扫描"><a href="#域扫描" class="headerlink" title="域扫描"></a>域扫描</h3><h4 id="SharpHound-BloodHound-的数据采集器"><a href="#SharpHound-BloodHound-的数据采集器" class="headerlink" title="SharpHound (BloodHound 的数据采集器)"></a>SharpHound (BloodHound 的数据采集器)</h4><ul>
+<li><strong>作用：</strong> 运行后会自动收集域内的用户、计算机、组、ACL（控制列表）、会话（谁登录在哪台机器上）等信息，并打包成一个 <code>.zip</code> 文件</li>
+<li><strong>原理</strong>是<code>LDAP</code>查询，是通过伪造身份向域控发起查询，因此只需要域控<code>IP</code></li>
+<li>把<code>.zip</code>导入到 <strong>BloodHound</strong> 的图形化界面中。能直接画出一条从当前普通账户 -&gt; 提权 -&gt; 拿下域管<strong>的视觉攻击路线图</strong></li>
+<li>[[BloodHound]]</li>
+</ul>
+<h4 id="PowerView-ps1-PowerSploit-框架的核心组件"><a href="#PowerView-ps1-PowerSploit-框架的核心组件" class="headerlink" title="PowerView.ps1 (PowerSploit 框架的核心组件)"></a>PowerView.ps1 (PowerSploit 框架的核心组件)</h4><ul>
+<li><code>Get-NetDomain</code> (查域基础信息)</li>
+<li><code>Get-NetUser</code> (查所有域用户)</li>
+<li><code>Get-NetComputer</code> (查所有域内机器)</li>
+<li><code>Find-LocalAdminAccess</code> (查当前账户对域内哪些机器拥有本地管理员权限)</li>
+</ul>
+<h4 id="ADExplorer-Sysinternals-官方工具"><a href="#ADExplorer-Sysinternals-官方工具" class="headerlink" title="ADExplorer (Sysinternals 官方工具)"></a>ADExplorer (Sysinternals 官方工具)</h4><ul>
+<li><strong>作用</strong>：是微软官方提供的高级 Active Directory 查看器。你可以用它连接到域控，然后点击 <strong>“Create Snapshot”</strong>，把整个 AD 数据库的快照打包成一个 <code>.dat</code> 文件带走。</li>
+<li><strong>优势</strong>： 因为是微软官方带有合法签名的工具，几乎没有杀毒软件会拦截它。带回本地后，可以用 <code>ADExplorerSnapshot.py</code> 脚本或自带的离线工具慢慢分析，极其隐蔽</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Windows/" class="print-no-link">#Windows</a>
+      
+        <a href="/tags/%E5%9F%9F/" class="print-no-link">#域</a>
+      
+        <a href="/tags/Scan/" class="print-no-link">#Scan</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/04/01/域/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/01/%E6%9C%8D%E5%8A%A1%E6%9C%BA%E5%88%B6/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/01/%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7%E4%B8%8E%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
